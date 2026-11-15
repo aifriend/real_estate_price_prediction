@@ -9,6 +9,7 @@ from pandas import DataFrame
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from xgboost import XGBRegressor
 
 from src.listing_etl_pipeline import process_full_listings
@@ -114,6 +115,11 @@ def predict_price_model(output_filepath: str, parent: int, root_dir: Path) -> No
         'subsample': 0.9
     }
     best_model = create_xgb_regressor(root_dir, **params)
+
+    # The model was trained on scaled features: apply the persisted scaler
+    scaler = DataService.load_model(
+        StandardScaler(), root_dir, parent=1, apex='price_scaler')
+    Xts = scaler.transform(Xts)
 
     # Make predictions using the tuned model
     y_pred = predict_with_tuned_model(best_model, Xts)

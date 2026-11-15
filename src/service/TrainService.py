@@ -352,6 +352,9 @@ class TrainService:
         scaler = StandardScaler()
         rescaled_x_train = scaler.fit_transform(X_train)
         rescaled_x_test = scaler.transform(X_test)
+        # Persist the fitted scaler: the saved models expect scaled inputs,
+        # so prediction must apply the very same transformation.
+        DataService.save_model(scaler, project_dir, parent=1, apex='price_scaler')
 
         """
         Baseline Models

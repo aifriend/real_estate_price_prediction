@@ -48,7 +48,7 @@ def train_price_model(output_filepath: str, root_dir: Path, parent: int = 0, opt
         logger.info(f"Best hyperparameters: {b_params}")
         logger.info(f"Best score: {b_score}")
 
-    return xgb if xgb else b_model
+    return b_model if b_model is not None else xgb
 
 
 def predict_review_outliers(review_df: DataFrame) -> None:
@@ -170,7 +170,7 @@ def predict_review_outliers(review_df: DataFrame) -> None:
         xgb_model.fit(review_list)
 
         # Get outlier scores for each review
-        outlier_scores = model.decision_function(review_list)
+        outlier_scores = xgb_model.decision_function(review_list)
 
         # Identify outliers based on the scores
         outlier_indices = np.where(outlier_scores < 0)[0]
