@@ -22,6 +22,10 @@ Loading and preparation of data:
 
 ## Analysis
 
+Show the analysis:
+
+    make analysis /PROJECT_DIR/data/processed
+
 ### Exploratory analysis (EDA)
 
 * Describe the situation of the temporary rental market on Airbnb in the city of Madrid at a general level.
@@ -69,12 +73,12 @@ Loading and preparation of data:
 
 
     make train /PROJECT_DIR/data/processed
-    make predict /PROJECT_DIR/data/processed
+    make prediction /PROJECT_DIR/data/processed
 
 
 ## Deployment
 
-[Deployment solution](references%2FCHALLENGE.md)
+[Deployment solution](deploy%2FDEPLOY.md)
 
 ## Report
 
